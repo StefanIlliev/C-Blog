@@ -13,6 +13,8 @@ namespace BlogSoftUni.Models
         {
         }
         public virtual IDbSet<Article> Articles { get; set; }
+        public virtual IDbSet<Category> Categories { get; set; }
+        public  virtual IDbSet<Article.Tag> Tags { get; set; }
         public static BlogDbContext Create()
         {
             return new BlogDbContext();

@@ -9,6 +9,20 @@ namespace BlogSoftUni.Models
 {
     public class Article
     {
+        private ICollection<Tag> tags;
+        public Article()
+        {
+            this.tags=new HashSet<Tag>();
+        }
+
+        public Article(string authorId, string title, string content, int categoryId)
+        {
+            this.AuthorId = authorId;
+            this.Title = title;
+            this.Content = content;
+            this.CategoryId = categoryId;
+            this.tags=new HashSet<Tag>();
+        }
         [Key]
         public int Id { get; set; }
 
@@ -27,6 +41,36 @@ namespace BlogSoftUni.Models
         public bool IsAuthor(string name)
         {
             return this.Author.UserName.Equals(name);
+        }
+        [ForeignKey("Category")]
+        public int CategoryId { get; set; }
+        public virtual Category Category { get;  set; }
+
+        public class Tag
+        {
+            private ICollection<Article> articles;
+
+            public Tag()
+            {
+                this.articles=new HashSet<Article>();
+            }
+            [Key]
+            public int Id { get; set; }
+            [Index(IsUnique = true)]
+            [StringLength(20)]
+            public string Name { get; set; }
+
+            public virtual ICollection<Article> Articles
+            {
+                get { return this.articles; }
+                set { this.articles = value; }
+            }
+        }
+
+        public virtual ICollection<Tag> Tags
+        {
+            get { return this.tags; }
+            set { this.tags = value; }
         }
     }
 }
