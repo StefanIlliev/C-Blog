@@ -1,2 +1,2 @@
 # C-Blog Project
-remaining Ecreating categories and tags
+#<strong>Finished</strong>
